@@ -276,19 +276,23 @@
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        window.addEventListener('load', function() {
+        // Start transition exactly when script runs + 3.5s to ensure total is 4s
+        // This avoids waiting for the 'load' event which can be slow.
+        (function() {
             setTimeout(() => {
                 const intro = document.getElementById('intro-overlay');
                 const site = document.getElementById('main-site');
 
-                intro.style.opacity = "0";
-                setTimeout(() => {
-                    intro.style.visibility = "hidden";
-                    site.classList.add('visible');
-                    AOS.init({ duration: 500, once: true, offset: 50 });
-                }, 500); // Fast 0.5s fade
-            }, 3500); // 3.5s animation + 0.5s fade = 4 seconds total
-        });
+                if (intro && site) {
+                    intro.style.opacity = "0";
+                    setTimeout(() => {
+                        intro.style.visibility = "hidden";
+                        site.classList.add('visible');
+                        AOS.init({ duration: 500, once: true, offset: 50 });
+                    }, 500); // Complete fade at 4.0s
+                }
+            }, 3500); // Start fade at 3.5s
+        })();
 
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
