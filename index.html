@@ -28,7 +28,7 @@
             flex-direction: column;
             background: #000;
             z-index: 9999;
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
             color: white;
         }
 
@@ -276,7 +276,6 @@
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Optimization: Snap-open site after intro
         window.addEventListener('load', function() {
             setTimeout(() => {
                 const intro = document.getElementById('intro-overlay');
@@ -286,10 +285,9 @@
                 setTimeout(() => {
                     intro.style.visibility = "hidden";
                     site.classList.add('visible');
-                    // Fast initialization of AOS
                     AOS.init({ duration: 500, once: true, offset: 50 });
-                }, 1000); // 1s fade instead of 1.5s for speed
-            }, 3500); // Intro length preserved
+                }, 500); // Fast 0.5s fade
+            }, 3500); // 3.5s animation + 0.5s fade = 4 seconds total
         });
 
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
